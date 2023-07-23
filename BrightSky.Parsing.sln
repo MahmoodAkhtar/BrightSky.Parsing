@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BrightSky.Parsing", "src\BrightSky.Parsing\BrightSky.Parsing.csproj", "{2B4285A3-DC67-4DB7-B7B4-91C08591749A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BrightSky.Parsing.Tests", "tests\BrightSky.Parsing.Tests\BrightSky.Parsing.Tests.csproj", "{50E23F33-C88A-44A5-98CC-5DDE4FA6EFCE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{2B4285A3-DC67-4DB7-B7B4-91C08591749A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2B4285A3-DC67-4DB7-B7B4-91C08591749A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2B4285A3-DC67-4DB7-B7B4-91C08591749A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{50E23F33-C88A-44A5-98CC-5DDE4FA6EFCE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{50E23F33-C88A-44A5-98CC-5DDE4FA6EFCE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{50E23F33-C88A-44A5-98CC-5DDE4FA6EFCE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{50E23F33-C88A-44A5-98CC-5DDE4FA6EFCE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
