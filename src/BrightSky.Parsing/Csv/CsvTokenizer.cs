@@ -1,6 +1,4 @@
-﻿using BrightSky.Parsing.Csv;
-
-namespace BrightSky.Parsing;
+﻿namespace BrightSky.Parsing.Csv;
 
 public class CsvTokenizer : ITokenizer<CsvToken>
 {
