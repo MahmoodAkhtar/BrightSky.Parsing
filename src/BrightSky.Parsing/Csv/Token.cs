@@ -1,4 +1,4 @@
-﻿namespace BrightSky.Parsing;
+﻿namespace BrightSky.Parsing.Csv;
 
 public abstract class Token
 {

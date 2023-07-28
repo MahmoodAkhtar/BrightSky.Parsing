@@ -14,4 +14,19 @@ public class CsvTokenizerTests
         // Assert
         actual.Should().BeEmpty();
     }
+
+    [Theory]
+    [InlineData(" ", 1)]
+    [InlineData("  ", 1)]
+    [InlineData("   ", 1)]
+    public void Tokenize_WithOneOrMoreSpacesOnly_Should_Be_NonEscapedValueTokens(string input, int count)
+    {
+        // Action
+        var actual = new CsvTokenizer().Tokenize(input);
+
+        // Assert
+        actual.Should().HaveCount(count);
+        actual.First().Should().BeOfType<NonEscapedValueToken>();
+        actual.First().Value.Should().Be(input);
+    }
 }
