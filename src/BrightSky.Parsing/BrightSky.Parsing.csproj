@@ -10,8 +10,5 @@
       <PackageReference Include="Pidgin" Version="3.2.2" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Xml\" />
-    </ItemGroup>
 
 </Project>

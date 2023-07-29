@@ -49,6 +49,9 @@ public class TagToken : SyntaxNode
                     case ClosingTagToken:
                         list.Add(token);
                         break;
+                    case ClosingCommentTagToken:
+                        list.Add(new CommentTagToken(token.Value, token.Children));
+                        break;
                 }
             }
             else

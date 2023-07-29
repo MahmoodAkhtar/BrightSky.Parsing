@@ -10,6 +10,8 @@ public static class XmlTokenizer
     private static readonly Parser<char, GtToken> Gt = Char('>').ThenReturn(new GtToken());
     private static readonly Parser<char, EqToken> Eq = Char('=').ThenReturn(new EqToken());
     private static readonly Parser<char, DqToken> Dq = Char('"').ThenReturn(new DqToken());
+    private static readonly Parser<char, HyphenToken> Hyphen = Char('-').ThenReturn(new HyphenToken());
+    private static readonly Parser<char, ExcMarkToken> ExcMark = Char('!').ThenReturn(new ExcMarkToken());
     private static readonly Parser<char, XmlNameToken> XmlName = CIString("xml").Map(x => new XmlNameToken(x));
     private static readonly Parser<char, LtQMarkToken> LtQMark = String("<?").Map(_ => new LtQMarkToken());
     private static readonly Parser<char, QMarkGtToken> QMarkGt = String("?>").Map(_ => new QMarkGtToken());
@@ -89,6 +91,32 @@ public static class XmlTokenizer
                 attributes as AttributeToken[] ?? attributes.ToArray(), 
                 after as char[] ?? after.ToArray(),
                 closing));
+    
+    private static readonly Parser<char, OpeningCommentTagToken> OpeningCommentTag = 
+        from opening in Lt
+        from excMark in ExcMark
+        from first in Hyphen
+        from second in Hyphen
+        select new OpeningCommentTagToken();
+    
+    private static readonly Parser<char, ClosingCommentTagToken> ClosingCommentTag = 
+        from first in Hyphen
+        from second in Hyphen
+        from excMark in ExcMark
+        from closing in Gt
+        select new ClosingCommentTagToken();
+          
+    private static readonly Parser<char, CommentTagContentToken> CommentTagContent =
+        Any.Between(OpeningCommentTag, ClosingCommentTag).ManyString().Map(x => new CommentTagContentToken(x));
+
+    private static readonly Parser<char, TagToken> CommentTag =
+        from comment in CommentTagContent
+        select new TagToken(
+            comment.Value,
+            CommentTagToken.OrganiseChildren(
+                new OpeningCommentTagToken(),
+                comment,
+                new ClosingCommentTagToken()));
     
     private static readonly Parser<char, OpeningTagToken> OpeningTag =
         from opening in Lt
@@ -185,7 +213,7 @@ public static class XmlTokenizer
                 closing
                 ));
 
-    private static readonly Parser<char, TagToken> Node = Try(Tag).Or(EmptyTag).Or(TagContent);
+    private static readonly Parser<char, TagToken> Node = Try(Tag).Or(EmptyTag).Or(TagContent).Or(CommentTag);
         
     public static TagToken Tokenize(string input) => Node.ParseOrThrow(input);
 }
