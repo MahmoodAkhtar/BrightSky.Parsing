@@ -40,6 +40,12 @@ public class TagToken : SyntaxNode
         {
             if (token.Children.Any())
             {
+                var first = token.Children.First();
+                if (first is XmlDeclToken)
+                {
+                    list.Add(new DocumentToken(token.Children));
+                }
+                
                 var last = token.Children.Last();
                 switch (last)
                 {

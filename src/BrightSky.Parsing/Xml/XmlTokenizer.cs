@@ -213,7 +213,15 @@ public static class XmlTokenizer
                 closing
                 ));
 
-    private static readonly Parser<char, TagToken> Node = Try(Tag).Or(EmptyTag).Or(TagContent).Or(CommentTag);
+    private static readonly Parser<char, TagToken> Document =
+        from decl in XmlDecl
+        from root in Node
+        select new TagToken(
+            string.Empty,
+            DocumentToken.OrganiseChildren(decl, root));
+
+    private static readonly Parser<char, TagToken> Node = 
+        Try(Document).Or(Tag).Or(EmptyTag).Or(TagContent).Or(CommentTag);
         
     public static TagToken Tokenize(string input) => Node.ParseOrThrow(input);
 }
