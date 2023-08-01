@@ -5,7 +5,7 @@ namespace BrightSky.Parsing.Xml;
 
 internal class AttributeToken : SyntaxNode
 {
-    internal AttributeToken(string value, IEnumerable<SyntaxNode> children) : base(value, children)
+    private AttributeToken(string value, IEnumerable<SyntaxNode> children) : base(value, children)
     {
     }
     

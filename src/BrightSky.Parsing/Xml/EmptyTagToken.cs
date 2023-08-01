@@ -36,8 +36,8 @@ internal class EmptyTagToken : SyntaxNode
                 after as char[] ?? after.ToArray(),
                 closing));
 
-    
-    internal static IEnumerable<SyntaxNode> OrganiseChildren (
+
+    private static IEnumerable<SyntaxNode> OrganiseChildren (
         SyntaxNode opening,
         char[] before,
         SyntaxNode name,

@@ -5,7 +5,7 @@ namespace BrightSky.Parsing.Xml;
 
 internal class XmlDeclToken : SyntaxNode
 {
-    internal XmlDeclToken(string value, IEnumerable<SyntaxNode> children) : base(value, children)
+    private XmlDeclToken(string value, IEnumerable<SyntaxNode> children) : base(value, children)
     {
     }
     

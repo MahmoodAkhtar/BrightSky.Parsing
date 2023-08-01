@@ -5,7 +5,7 @@ namespace BrightSky.Parsing.Xml;
 
 internal class CommentTagContentToken :SyntaxNode
 {
-    internal CommentTagContentToken(string value) : base(value, Array.Empty<SyntaxNode>())
+    private CommentTagContentToken(string value) : base(value, Array.Empty<SyntaxNode>())
     {
     }
  

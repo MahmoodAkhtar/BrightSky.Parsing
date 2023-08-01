@@ -5,7 +5,7 @@ namespace BrightSky.Parsing.Xml;
 
 internal class EqToken : SyntaxNode
 {
-    internal EqToken() : base("=", Array.Empty<SyntaxNode>())
+    private EqToken() : base("=", Array.Empty<SyntaxNode>())
     {
     }
     
