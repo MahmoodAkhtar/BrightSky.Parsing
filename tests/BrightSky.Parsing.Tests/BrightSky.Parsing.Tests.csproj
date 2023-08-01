@@ -27,4 +27,5 @@
       <ProjectReference Include="..\..\src\BrightSky.Parsing\BrightSky.Parsing.csproj" />
     </ItemGroup>
 
+
 </Project>

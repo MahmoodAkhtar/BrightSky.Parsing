@@ -1,26 +1,26 @@
 ﻿using BrightSky.Parsing.Xml;
 using Pidgin;
 
-namespace BrightSky.Parsing.Tests;
+namespace BrightSky.Parsing.Tests.Xml;
 
-public class GtTokenTests
+public class LtTokenTests
 {
     [Fact]
     public void Parser_ShouldBe_AsExpected()
     {
         // Action
-        var actual = GtToken.Parser.ParseOrThrow(">");
+        var actual = LtToken.Parser.ParseOrThrow("<");
         
         // Assert
-        actual.Should().BeOfType<GtToken>();
-        actual.Value.Should().Be(">");
+        actual.Should().BeOfType<LtToken>();
+        actual.Value.Should().Be("<");
     }
     
     [Fact]
     public void Parser_ShouldThrowExactly_ParseException()
     {
         // Action
-        Action action = () => GtToken.Parser.ParseOrThrow("");
+        Action action = () => LtToken.Parser.ParseOrThrow("");
         
         // Assert
         action.Should().ThrowExactly<ParseException>();

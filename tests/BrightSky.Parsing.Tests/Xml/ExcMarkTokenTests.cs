@@ -1,7 +1,7 @@
-﻿using Pidgin;
-using BrightSky.Parsing.Xml;
+﻿using BrightSky.Parsing.Xml;
+using Pidgin;
 
-namespace BrightSky.Parsing.Tests;
+namespace BrightSky.Parsing.Tests.Xml;
 
 public class ExcMarkTokenTests
 {
