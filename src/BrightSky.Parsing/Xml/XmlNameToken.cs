@@ -1,8 +1,13 @@
-﻿namespace BrightSky.Parsing.Xml;
+﻿using Pidgin;
+using static Pidgin.Parser;
 
-public class XmlNameToken : SyntaxNode
+namespace BrightSky.Parsing.Xml;
+
+internal class XmlNameToken : SyntaxNode
 {
-    public XmlNameToken(string value) : base(value, Array.Empty<SyntaxNode>())
+    internal XmlNameToken(string value) : base(value, Array.Empty<SyntaxNode>())
     {
     }
+    
+    internal static readonly Parser<char, XmlNameToken> Parser =  CIString("xml").Map(x => new XmlNameToken(x));
 }

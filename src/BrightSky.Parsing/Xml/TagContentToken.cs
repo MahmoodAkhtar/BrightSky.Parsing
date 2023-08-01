@@ -1,8 +1,14 @@
-﻿namespace BrightSky.Parsing.Xml;
+﻿using Pidgin;
+using static Pidgin.Parser<char>;
 
-public class TagContentToken : SyntaxNode
+namespace BrightSky.Parsing.Xml;
+
+internal class TagContentToken : SyntaxNode
 {
-    public TagContentToken(string value) : base(value, Array.Empty<SyntaxNode>())
+    internal TagContentToken(string value) : base(value, Array.Empty<SyntaxNode>())
     {
     }
+    
+    internal static readonly Parser<char, TagToken> Parser = 
+        Token(c => c != '<').ManyString().Map(x => new TagToken(x, Array.Empty<SyntaxNode>()));
 }

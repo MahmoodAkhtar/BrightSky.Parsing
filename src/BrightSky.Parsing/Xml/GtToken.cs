@@ -1,8 +1,13 @@
-﻿namespace BrightSky.Parsing.Xml;
+﻿using Pidgin;
+using static Pidgin.Parser;
 
-public class GtToken : SyntaxNode
+namespace BrightSky.Parsing.Xml;
+
+internal class GtToken : SyntaxNode
 {
-    public GtToken() : base(">", Array.Empty<SyntaxNode>())
+    internal GtToken() : base(">", Array.Empty<SyntaxNode>())
     {
     }
+    
+    internal static readonly Parser<char, GtToken> Parser = Char('>').ThenReturn(new GtToken());
 }

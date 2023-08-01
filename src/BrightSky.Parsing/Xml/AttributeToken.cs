@@ -1,12 +1,40 @@
-﻿namespace BrightSky.Parsing.Xml;
+﻿using Pidgin;
+using static Pidgin.Parser;
 
-public class AttributeToken : SyntaxNode
+namespace BrightSky.Parsing.Xml;
+
+internal class AttributeToken : SyntaxNode
 {
-    public AttributeToken(string value, IEnumerable<SyntaxNode> children) : base(value, children)
+    internal AttributeToken(string value, IEnumerable<SyntaxNode> children) : base(value, children)
     {
     }
     
-    internal static IEnumerable<SyntaxNode> OrganiseChildren (
+    internal static readonly Parser<char, AttributeToken> Parser = 
+        from before in (
+            from ws in Whitespace
+            select ws).Many()
+        from name in IdentifierToken.Parser
+        from middle in (
+            from ws in Whitespace
+            select ws).Many()
+        from eq in EqToken.Parser
+        from after in (
+            from ws in Whitespace
+            select ws).Many()
+        from value in AttributeValueToken.Parser.Between(DqToken.Parser)
+        select new AttributeToken(
+            name.Value,
+            OrganiseChildren(
+                before as char[] ?? before.ToArray(),
+                name,
+                middle as char[] ?? middle.ToArray(),
+                eq,
+                after as char[] ?? after.ToArray(),
+                new DqToken(),
+                value,
+                new DqToken()));
+
+    private static IEnumerable<SyntaxNode> OrganiseChildren (
         char[] before,
         SyntaxNode name,
         char[] middle,

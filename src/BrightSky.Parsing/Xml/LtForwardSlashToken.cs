@@ -1,8 +1,14 @@
-﻿namespace BrightSky.Parsing.Xml;
+﻿using Pidgin;
+using static Pidgin.Parser;
 
-public class LtForwardSlashToken : SyntaxNode
+namespace BrightSky.Parsing.Xml;
+
+internal class LtForwardSlashToken : SyntaxNode
 {
-    public LtForwardSlashToken() : base("</", new SyntaxNode[] { new LtToken(), new ForwardSlashToken() })
+    internal LtForwardSlashToken() : base("</", new SyntaxNode[] { new LtToken(), new ForwardSlashToken() })
     {
     }
+    
+    internal static readonly Parser<char, LtForwardSlashToken> Parser = String("</")
+        .Map(_ => new LtForwardSlashToken());
 }

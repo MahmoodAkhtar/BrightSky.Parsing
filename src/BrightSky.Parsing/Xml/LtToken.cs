@@ -1,8 +1,13 @@
-﻿namespace BrightSky.Parsing.Xml;
+﻿using Pidgin;
+using static Pidgin.Parser;
 
-public class LtToken : SyntaxNode
+namespace BrightSky.Parsing.Xml;
+
+internal class LtToken : SyntaxNode
 {
-    public LtToken() : base("<", Array.Empty<SyntaxNode>())
+    internal LtToken() : base("<", Array.Empty<SyntaxNode>())
     {
     }
+    
+    internal static readonly Parser<char, LtToken> Parser = Char('<').ThenReturn(new LtToken());
 }

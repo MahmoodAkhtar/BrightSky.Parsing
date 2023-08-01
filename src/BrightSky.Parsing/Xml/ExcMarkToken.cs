@@ -1,8 +1,13 @@
-﻿namespace BrightSky.Parsing.Xml;
+﻿using Pidgin;
+using static Pidgin.Parser;
 
-public class ExcMarkToken : SyntaxNode
+namespace BrightSky.Parsing.Xml;
+
+internal class ExcMarkToken : SyntaxNode
 {
-    public ExcMarkToken() : base("!", Array.Empty<SyntaxNode>())
+    internal ExcMarkToken() : base("!", Array.Empty<SyntaxNode>())
     {
     }
+    
+    internal static readonly Parser<char, ExcMarkToken> Parser = Char('!').ThenReturn(new ExcMarkToken());
 }

@@ -1,8 +1,13 @@
-﻿namespace BrightSky.Parsing.Xml;
+﻿using Pidgin;
+using static Pidgin.Parser;
 
-public class DqToken : SyntaxNode
+namespace BrightSky.Parsing.Xml;
+
+internal class DqToken : SyntaxNode
 {
-    public DqToken() : base("\"", Array.Empty<SyntaxNode>())
+    internal DqToken() : base("\"", Array.Empty<SyntaxNode>())
     {
     }
+    
+    internal static readonly Parser<char, DqToken> Parser = Char('"').ThenReturn(new DqToken());
 }

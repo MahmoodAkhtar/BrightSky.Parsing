@@ -1,8 +1,8 @@
 ﻿namespace BrightSky.Parsing.Xml;
 
-public class QMarkToken : SyntaxNode
+internal class QMarkToken : SyntaxNode
 {
-    public QMarkToken() : base("?", Array.Empty<SyntaxNode>())
+    internal QMarkToken() : base("?", Array.Empty<SyntaxNode>())
     {
     }
 }

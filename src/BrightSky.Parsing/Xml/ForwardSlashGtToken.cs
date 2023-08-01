@@ -1,8 +1,14 @@
-﻿namespace BrightSky.Parsing.Xml;
+﻿using Pidgin;
+using static Pidgin.Parser;
 
-public class ForwardSlashGtToken : SyntaxNode
+namespace BrightSky.Parsing.Xml;
+
+internal class ForwardSlashGtToken : SyntaxNode
 {
-    public ForwardSlashGtToken() : base("/>", new SyntaxNode[] { new ForwardSlashToken(), new GtToken() })
+    internal ForwardSlashGtToken() : base("/>", new SyntaxNode[] { new ForwardSlashToken(), new GtToken() })
     {
     }
+    
+    internal static readonly Parser<char, ForwardSlashGtToken> Parser = String("/>")
+        .Map(_ => new ForwardSlashGtToken());
 }

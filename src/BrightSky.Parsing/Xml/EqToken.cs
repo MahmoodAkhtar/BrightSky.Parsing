@@ -1,8 +1,13 @@
-﻿namespace BrightSky.Parsing.Xml;
+﻿using Pidgin;
+using static Pidgin.Parser;
 
-public class EqToken : SyntaxNode
+namespace BrightSky.Parsing.Xml;
+
+internal class EqToken : SyntaxNode
 {
-    public EqToken() : base("=", Array.Empty<SyntaxNode>())
+    internal EqToken() : base("=", Array.Empty<SyntaxNode>())
     {
     }
+    
+    internal static readonly Parser<char, EqToken> Parser = Char('=').ThenReturn(new EqToken());
 }

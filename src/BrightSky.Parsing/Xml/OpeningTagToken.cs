@@ -1,12 +1,42 @@
-﻿namespace BrightSky.Parsing.Xml;
+﻿using Pidgin;
+using static Pidgin.Parser;
 
-public class OpeningTagToken : SyntaxNode
+namespace BrightSky.Parsing.Xml;
+
+internal class OpeningTagToken : SyntaxNode
 {
-    public OpeningTagToken(string value, IEnumerable<SyntaxNode> children) : base(value, children)
+    internal OpeningTagToken(string value, IEnumerable<SyntaxNode> children) : base(value, children)
     {
     }
 
-    internal static IEnumerable<SyntaxNode> OrganiseChildren (
+    internal static readonly Parser<char, OpeningTagToken> Parser = 
+        from opening in LtToken.Parser
+        from before in (
+            from ws in Whitespace
+            select ws).Many()
+        from name in IdentifierToken.Parser
+        from middle in (
+            from ws in Whitespace
+            select ws).Many()
+        from attributes in (
+            from attribute in Try(AttributeToken.Parser)
+            select attribute).Many()
+        from after in (
+            from ws in Whitespace
+            select ws).Many()
+        from closing in GtToken.Parser
+        select new OpeningTagToken(
+            name.Value,
+            OrganiseChildren(
+                opening,
+                before as char[] ?? before.ToArray(),
+                name,
+                middle as char[] ?? middle.ToArray(),
+                attributes as AttributeToken[] ?? attributes.ToArray(),
+                after as char[] ?? after.ToArray(),
+                closing));
+    
+    private static IEnumerable<SyntaxNode> OrganiseChildren (
         SyntaxNode opening,
         char[] before,
         SyntaxNode name,

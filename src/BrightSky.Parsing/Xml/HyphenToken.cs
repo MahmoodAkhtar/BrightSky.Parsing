@@ -1,8 +1,13 @@
-﻿namespace BrightSky.Parsing.Xml;
+﻿using Pidgin;
+using static Pidgin.Parser;
 
-public class HyphenToken : SyntaxNode
+namespace BrightSky.Parsing.Xml;
+
+internal class HyphenToken : SyntaxNode
 {
-    public HyphenToken() : base("-", Array.Empty<SyntaxNode>())
+    internal HyphenToken() : base("-", Array.Empty<SyntaxNode>())
     {
     }
+    
+    internal static readonly Parser<char, HyphenToken> Parser = Char('-').ThenReturn(new HyphenToken());
 }

@@ -1,8 +1,14 @@
-﻿namespace BrightSky.Parsing.Xml;
+﻿using Pidgin;
+using static Pidgin.Parser<char>;
 
-public class AttributeValueToken : SyntaxNode
+namespace BrightSky.Parsing.Xml;
+
+internal class AttributeValueToken : SyntaxNode
 {
-    public AttributeValueToken(string value) : base(value, Array.Empty<SyntaxNode>())
+    internal AttributeValueToken(string value) : base(value, Array.Empty<SyntaxNode>())
     {
     }
+    
+    internal static readonly Parser<char, AttributeValueToken> Parser = 
+        Token(c => c != '"').ManyString().Map(x => new AttributeValueToken(x));
 }

@@ -1,8 +1,22 @@
-﻿namespace BrightSky.Parsing.Xml;
+﻿using Pidgin;
+using static Pidgin.Parser<char>;
 
-public class IdentifierToken : SyntaxNode
+namespace BrightSky.Parsing.Xml;
+
+internal class IdentifierToken : SyntaxNode
 {
-    public IdentifierToken(string value) : base(value, Array.Empty<SyntaxNode>())
+    internal IdentifierToken(string value) : base(value, Array.Empty<SyntaxNode>())
     {
     }
+    
+    internal static readonly Parser<char, IdentifierToken> Parser = 
+        from first in Token(CharIsAllowableFirst)
+        from rest in Any.Assert(CharIsAllowableRest).ManyString()
+        select new IdentifierToken(first + rest);
+
+    private static bool CharIsAllowableFirst(char c) =>
+        new[] { '_', ':' }.Contains(c) || char.IsLetter(c);
+
+    private static bool CharIsAllowableRest(char c) =>
+        new[] { '.', '-', '_', ':' }.Contains(c) || char.IsLetterOrDigit(c);
 }

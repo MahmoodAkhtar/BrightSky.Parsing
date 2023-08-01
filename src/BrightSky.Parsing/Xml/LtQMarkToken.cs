@@ -1,8 +1,13 @@
-﻿namespace BrightSky.Parsing.Xml;
+﻿using Pidgin;
+using static Pidgin.Parser;
 
-public class LtQMarkToken : SyntaxNode
+namespace BrightSky.Parsing.Xml;
+
+internal class LtQMarkToken : SyntaxNode
 {
-    public LtQMarkToken() : base("<?", new SyntaxNode[] { new LtToken(), new QMarkToken() })
+    internal LtQMarkToken() : base("<?", new SyntaxNode[] { new LtToken(), new QMarkToken() })
     {
     }
+    
+    internal static readonly Parser<char, LtQMarkToken> Parser = String("<?").Map(_ => new LtQMarkToken());
 }
