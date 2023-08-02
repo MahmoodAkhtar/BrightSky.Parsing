@@ -11,7 +11,7 @@ internal class IdentifierToken : SyntaxNode
     
     internal static readonly Parser<char, IdentifierToken> Parser = 
         from first in Token(CharIsAllowableFirst)
-        from rest in Any.Assert(CharIsAllowableRest).ManyString()
+        from rest in Token(CharIsAllowableRest).ManyString()
         select new IdentifierToken(first + rest);
 
     private static bool CharIsAllowableFirst(char c) =>

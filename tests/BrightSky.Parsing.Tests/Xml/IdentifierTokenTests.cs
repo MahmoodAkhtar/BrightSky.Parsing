@@ -63,10 +63,21 @@ public class IdentifierTokenTests
     }
 
     [Theory]
+    [InlineData("a#", "a")]
+    [InlineData("_#", "_")]
+    [InlineData(":#", ":")]
+    public void Parser_WithInvalidCharsAfterFirst_ShouldBe_AsExpected(string input, string expected)
+    {
+        // Action
+        var actual = IdentifierToken.Parser.ParseOrThrow(input);
+
+        // Assert
+        actual.Should().BeOfType<IdentifierToken>();
+        actual.Value.Should().Be(expected);
+    }   
+    
+    [Theory]
     [InlineData("#")]
-    [InlineData("a#")]
-    [InlineData("_#")]
-    [InlineData(":#")]
     public void Parser_ShouldThrowExactly_ParseException(string input)
     {
         // Action
