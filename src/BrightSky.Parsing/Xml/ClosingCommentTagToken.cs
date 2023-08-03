@@ -12,7 +12,6 @@ internal class ClosingCommentTagToken : SyntaxNode
     internal static readonly Parser<char, ClosingCommentTagToken> Parser = 
         from first in HyphenToken.Parser
         from second in HyphenToken.Parser
-        from excMark in ExcMarkToken.Parser
         from closing in GtToken.Parser
         select new ClosingCommentTagToken();
 }
