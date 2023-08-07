@@ -10,5 +10,5 @@ internal class ClosingCommentTagToken : SyntaxNode
     }    
     
     internal static readonly Parser<char, ClosingCommentTagToken> Parser =
-        HyphenToken.Parser.Then(HyphenToken.Parser).Then(GtToken.Parser).Map(x => new ClosingCommentTagToken());
+        HyphenToken.Parser.Then(HyphenToken.Parser).Then(GtToken.Parser).Map(_ => new ClosingCommentTagToken());
 }
