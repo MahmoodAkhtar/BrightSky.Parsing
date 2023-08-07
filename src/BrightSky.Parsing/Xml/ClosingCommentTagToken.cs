@@ -7,11 +7,8 @@ internal class ClosingCommentTagToken : SyntaxNode
     internal ClosingCommentTagToken() : base("-->", 
         new SyntaxNode[] { new HyphenToken(), new HyphenToken(), new GtToken() })
     {
-    }
+    }    
     
-    internal static readonly Parser<char, ClosingCommentTagToken> Parser = 
-        from first in HyphenToken.Parser
-        from second in HyphenToken.Parser
-        from closing in GtToken.Parser
-        select new ClosingCommentTagToken();
+    internal static readonly Parser<char, ClosingCommentTagToken> Parser =
+        HyphenToken.Parser.Then(HyphenToken.Parser).Then(GtToken.Parser).Map(x => new ClosingCommentTagToken());
 }
