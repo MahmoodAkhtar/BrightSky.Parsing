@@ -8,11 +8,15 @@ public class CommentTagContentTokenTests
     [Theory]
     [InlineData("<!---->", "")]
     [InlineData("<!-- -->", " ")]
-    [InlineData("<!-- x-y -->", " x-y ")]
     [InlineData("<!--x-->", "x")]
     [InlineData("<!-- x -->", " x ")]
     [InlineData("<!--xyz-->", "xyz")]
     [InlineData("<!-- xyz -->", " xyz ")]
+    [InlineData("<!-- <> -->", " <> ")]
+    [InlineData("<!-- x-y -->", " x-y ")]
+    [InlineData("<!-- -- -->", " -- ")]
+    [InlineData("<!-- <!-- -->", " <!-- ")]
+    [InlineData("<!-- --> -->", " --> ")]
     public void Parser_ShouldBe_AsExpected(string input, string expected)
     {
         // Action
