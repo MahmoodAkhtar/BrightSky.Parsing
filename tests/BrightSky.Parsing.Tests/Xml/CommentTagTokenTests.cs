@@ -17,6 +17,11 @@ public class CommentTagTokenTests
     [InlineData("<!-- -- -->", " -- ")]
     [InlineData("<!-- <!-- -->", " <!-- ")]
     [InlineData("<!-- --> -->", " --> ")]
+    [InlineData("<!-- <abc/> -->", " <abc/> ")]
+    [InlineData("<!-- <abc></abc> -->", " <abc></abc> ")]
+    [InlineData("<!-- <abc>xyz</abc> -->", " <abc>xyz</abc> ")]
+    [InlineData("<!-- <abc><!----></abc> -->", " <abc><!----></abc> ")]
+    [InlineData("<!-- <abc><!-- xyz --></abc> -->", " <abc><!-- xyz --></abc> ")]
     public void Parser_ShouldBe_AsExpected(string input, string expected)
     {
         // Action
