@@ -7,6 +7,6 @@ internal static class NodeToken
 {
     internal static readonly Parser<char, TagToken> Parser =
         Try(TagToken.Parser)
-            .Or(Try(EmptyTagToken.Parser).Or(CommentTagToken.Parser))
+            .Or(Try(CommentTagToken.Parser).Or(EmptyTagToken.Parser))
             .Or(TagContentToken.Parser);
 }

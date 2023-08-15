@@ -17,6 +17,8 @@ public class TagTokenTests
     [InlineData("<abc><xyx/></abc>", "abc")]
     [InlineData("<abc><xyx></xyz></abc>", "abc")]
     [InlineData("<abc><!----></abc>", "abc")]
+    [InlineData("<abc><!-- xyz --></abc>", "abc")]
+    [InlineData("<abc>\r\n<!--\r\n\txyz \r\n-->\r\n</abc>", "abc")]
     public void Parser_ShouldBe_AsExpected(string input, string expected)
     {
         // Action

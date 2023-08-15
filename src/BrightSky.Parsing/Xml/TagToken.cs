@@ -86,7 +86,14 @@ public class TagToken : SyntaxNode
             }
             else
             {
-                list.Add(new TagContentToken(token.Value));
+                if (string.IsNullOrWhiteSpace(token.Value))
+                {
+                    list.Add(new WhitespacesToken(token.Value));
+                }
+                else
+                {
+                    list.Add(new TagContentToken(token.Value));
+                }
             }
         }
             

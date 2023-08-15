@@ -33,8 +33,8 @@ public class UntilLastOfAnyString: Parser<char, string>
 
         if (!bookmarks.Any()) return true;
         var last = bookmarks.Last();
-        state.Rewind(last);
-        result = last == start ? string.Empty : sb.ToString()[..^_terminator.Length];
+        state.Rewind(last+_terminator.Length);
+        result = last == start ? string.Empty : sb.ToString()[..(last-start)];
 
         return true;
     }

@@ -22,6 +22,7 @@ public class CommentTagTokenTests
     [InlineData("<!-- <abc>xyz</abc> -->", " <abc>xyz</abc> ")]
     [InlineData("<!-- <abc><!----></abc> -->", " <abc><!----></abc> ")]
     [InlineData("<!-- <abc><!-- xyz --></abc> -->", " <abc><!-- xyz --></abc> ")]
+    [InlineData("<!--\r\n\txyz \r\n-->", "\r\n\txyz \r\n")]
     public void Parser_ShouldBe_AsExpected(string input, string expected)
     {
         // Action
