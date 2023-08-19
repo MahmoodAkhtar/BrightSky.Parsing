@@ -11,18 +11,18 @@ internal class EmptyTagToken : SyntaxNode
  
     internal static readonly Parser<char, TagToken> Parser = 
         from opening in LtToken.Parser
-            from before in (
-        from ws in Whitespace
+        from before in (
+            from ws in Whitespace
             select ws).Many()
         from name in IdentifierToken.Parser
-            from middle in (
-        from ws in Whitespace
+        from middle in (
+            from ws in Whitespace
             select ws).Many()
         from attributes in (
-        from attribute in Try(AttributeToken.Parser)
-        select attribute).Many()
+            from attribute in Try(AttributeToken.Parser)
+            select attribute).Many()
         from after in (
-        from ws in Whitespace
+            from ws in Whitespace
             select ws).Many()
         from closing in ForwardSlashGtToken.Parser
         select new TagToken(

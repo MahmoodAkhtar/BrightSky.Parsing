@@ -46,57 +46,50 @@ public class TagToken : SyntaxNode
             list.Add(new WhitespacesToken(new string(before)));
 
         if (children.Any())
-            list.AddRange(TypeTheTagTokens(children));
+            list.AddRange(DetermineTypeForTokens(children));
             
         if (after.Any())
             list.Add(new WhitespacesToken(new string(after)));
             
         list.Add(closing);
-            
+        
         return list;
     }
     
-    private static IEnumerable<SyntaxNode> TypeTheTagTokens(IEnumerable<TagToken> tokens)
-    {
-        var list = new List<SyntaxNode>();
+    private static IEnumerable<SyntaxNode> DetermineTypeForTokens(IEnumerable<TagToken> tokens)
+        => tokens.Select(DetermineTypeForToken);
 
-        foreach (var token in tokens)
+    private static SyntaxNode DetermineTypeForToken(SyntaxNode token)
+    {
+        if (token.Children.Any())
         {
-            if (token.Children.Any())
-            {
-                var first = token.Children.First();
-                if (first is XmlDeclToken)
-                {
-                    list.Add(new DocumentToken(token.Children));
-                }
-                
-                var last = token.Children.Last();
-                switch (last)
-                {
-                    case ForwardSlashGtToken:
-                        list.Add(new EmptyTagToken(token.Value, token.Children));
-                        break;
-                    case ClosingTagToken:
-                        list.Add(token);
-                        break;
-                    case ClosingCommentTagToken:
-                        list.Add(new CommentTagToken(token.Value, token.Children));
-                        break;
-                }
-            }
-            else
-            {
-                if (string.IsNullOrWhiteSpace(token.Value))
-                {
-                    list.Add(new WhitespacesToken(token.Value));
-                }
-                else
-                {
-                    list.Add(new TagContentToken(token.Value));
-                }
-            }
+            return TryWhenFirstChildIsXmlDeclToken(token, out var output) 
+                ? output 
+                : OrTryBasedUponTypeOfLastChild(token);
         }
-            
-        return list;
+
+        return WhenNotHavingAnyChildren(token);
     }
+
+    private static bool TryWhenFirstChildIsXmlDeclToken(SyntaxNode parent, out SyntaxNode output)
+    {
+        output = new DocumentToken(Array.Empty<SyntaxNode>());
+        if (parent.Children.First() is not XmlDeclToken) return false;
+        output = new DocumentToken(parent.Children);
+        return true;
+    }
+
+    private static SyntaxNode OrTryBasedUponTypeOfLastChild(SyntaxNode token)
+        => token.Children.Last() switch
+        {
+            ForwardSlashGtToken => new EmptyTagToken(token.Value, token.Children),
+            ClosingTagToken => token,
+            ClosingCommentTagToken => new CommentTagToken(token.Value, token.Children),
+            _ => Empty
+        };
+
+    private static SyntaxNode WhenNotHavingAnyChildren(SyntaxNode token)
+        => string.IsNullOrWhiteSpace(token.Value)
+            ? new WhitespacesToken(token.Value)
+            : new TagContentToken(token.Value);
 }

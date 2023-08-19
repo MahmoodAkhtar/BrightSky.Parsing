@@ -1,7 +1,16 @@
 ﻿namespace BrightSky.Parsing.Xml;
 
+public class EmptySyntaxNode : SyntaxNode
+{
+    internal EmptySyntaxNode() : base(string.Empty, Array.Empty<SyntaxNode>())
+    {
+    }
+}
+
 public abstract class SyntaxNode : IEquatable<SyntaxNode>
 {
+    protected static SyntaxNode Empty => new EmptySyntaxNode();
+    
     public string Value { get; }
     public IEnumerable<SyntaxNode> Children { get; }
 
@@ -25,8 +34,5 @@ public abstract class SyntaxNode : IEquatable<SyntaxNode>
         return obj.GetType() == GetType() && Equals((SyntaxNode)obj);
     }
 
-    public override int GetHashCode()
-    {
-        return HashCode.Combine(Value, Children);
-    }
+    public override int GetHashCode() => HashCode.Combine(Value, Children);
 }
