@@ -9,11 +9,10 @@ internal class DocumentToken : SyntaxNode
     {
     }
     
-    internal static readonly Parser<char, TagToken> Parser = 
+    internal static readonly Parser<char, DocumentToken> Parser = 
         from decl in Try(XmlDeclToken.Parser).Optional()
         from root in NodeToken.Parser
-        select new TagToken(
-            string.Empty,
+        select new DocumentToken(
             OrganiseChildren(
                 decl.HasValue ? decl.Value : Empty,
                 root));

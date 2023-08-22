@@ -22,7 +22,7 @@ public class TagTokenTests
     [InlineData("<abc>\r\n<!--\r\n\txyz \r\n-->\r\nxyz</abc>", "abc")]
     [InlineData("<abc>\r\n<!--\r\n\txyz \r\n-->\r\n<xyx/></abc>", "abc")]
     [InlineData("<abc>\r\n<!--\r\n\txyz \r\n-->\r\n<xyx></xyz></abc>", "abc")]
- 
+    
     [InlineData("<abc def=\"123\"></abc>", "abc")]
     [InlineData("<abc def=\"123\"> </abc>", "abc")]
     [InlineData("<abc def=\"123\">\t</abc>", "abc")]
@@ -39,7 +39,7 @@ public class TagTokenTests
     [InlineData("<abc def=\"123\">\r\n<!--\r\n\txyz \r\n-->\r\nxyz</abc>", "abc")]
     [InlineData("<abc def=\"123\">\r\n<!--\r\n\txyz \r\n-->\r\n<xyx/></abc>", "abc")]
     [InlineData("<abc def=\"123\">\r\n<!--\r\n\txyz \r\n-->\r\n<xyx></xyz></abc>", "abc")]
- 
+    
     [InlineData("<abc def=\"123\" ghi=\"456\"></abc>", "abc")]
     [InlineData("<abc def=\"123\" ghi=\"456\"> </abc>", "abc")]
     [InlineData("<abc def=\"123\" ghi=\"456\">\t</abc>", "abc")]

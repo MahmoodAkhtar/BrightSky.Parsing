@@ -120,12 +120,12 @@ public class DocumentTokenTests
     [InlineData("<?xml abd=\"123\" efg=\"546\" ?><abc def=\"123\" ghi=\"456\">\r\n<!--\r\n\txyz \r\n-->\r\n<xyx/></abc>", "")]
     [InlineData("<?xml abd=\"123\" efg=\"546\" ?><abc def=\"123\" ghi=\"456\">\r\n<!--\r\n\txyz \r\n-->\r\n<xyx></xyz></abc>", "")]
    public void Parser_ShouldBe_AsExpected(string input, string expected)
-    {
+   {
         // Action
         var actual = DocumentToken.Parser.ParseOrThrow(input);
 
         // Assert
-        actual.Should().BeOfType<TagToken>();
+        actual.Should().BeOfType<DocumentToken>();
         actual.Value.Should().Be(expected);
-    }
+   }
 }
