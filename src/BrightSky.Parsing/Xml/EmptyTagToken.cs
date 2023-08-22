@@ -3,7 +3,7 @@ using static Pidgin.Parser;
 
 namespace BrightSky.Parsing.Xml;
 
-internal class EmptyTagToken : SyntaxNode
+internal record EmptyTagToken : SyntaxNode
 {
     internal EmptyTagToken(string value, IEnumerable<SyntaxNode> children) : base(value, children)
     {

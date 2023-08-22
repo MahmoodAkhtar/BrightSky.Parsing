@@ -2,7 +2,7 @@
 
 namespace BrightSky.Parsing.Xml;
 
-internal class CommentTagToken : SyntaxNode
+internal record CommentTagToken : SyntaxNode
 {
     internal CommentTagToken(string value, IEnumerable<SyntaxNode> children) : base(value, children)
     {

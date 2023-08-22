@@ -3,7 +3,7 @@ using static Pidgin.Parser;
 
 namespace BrightSky.Parsing.Xml;
 
-internal class DocumentToken : SyntaxNode
+internal record DocumentToken : SyntaxNode
 {
     internal DocumentToken(IEnumerable<SyntaxNode> children) : base(string.Empty, children)
     {

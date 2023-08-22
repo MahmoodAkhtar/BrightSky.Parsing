@@ -3,7 +3,7 @@ using static Pidgin.Parser;
 
 namespace BrightSky.Parsing.Xml;
 
-internal class HyphenToken : SyntaxNode
+internal record HyphenToken : SyntaxNode
 {
     internal HyphenToken() : base("-", Array.Empty<SyntaxNode>())
     {

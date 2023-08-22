@@ -3,7 +3,7 @@ using static Pidgin.Parser;
 
 namespace BrightSky.Parsing.Xml;
 
-internal class ExcMarkToken : SyntaxNode
+internal record ExcMarkToken : SyntaxNode
 {
     internal ExcMarkToken() : base("!", Array.Empty<SyntaxNode>())
     {

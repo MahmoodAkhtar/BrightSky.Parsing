@@ -3,7 +3,7 @@ using static Pidgin.Parser<char>;
 
 namespace BrightSky.Parsing.Xml;
 
-internal class IdentifierToken : SyntaxNode
+internal record IdentifierToken : SyntaxNode
 {
     private IdentifierToken(string value) : base(value, Array.Empty<SyntaxNode>())
     {

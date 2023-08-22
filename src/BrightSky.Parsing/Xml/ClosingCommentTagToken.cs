@@ -2,7 +2,7 @@
 
 namespace BrightSky.Parsing.Xml;
 
-internal class ClosingCommentTagToken : SyntaxNode
+internal record ClosingCommentTagToken : SyntaxNode
 {
     internal ClosingCommentTagToken() : base("-->", 
         new SyntaxNode[] { new HyphenToken(), new HyphenToken(), new GtToken() })

@@ -2,7 +2,7 @@
 
 namespace BrightSky.Parsing.Xml;
 
-internal class OpeningCommentTagToken : SyntaxNode
+internal record OpeningCommentTagToken : SyntaxNode
 {
     internal OpeningCommentTagToken() : base("<!--", 
         new SyntaxNode[] { new LtToken(), new ExcMarkToken(), new HyphenToken(), new HyphenToken() })

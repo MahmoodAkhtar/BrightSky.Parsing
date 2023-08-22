@@ -3,7 +3,7 @@ using Pidgin;
 
 namespace BrightSky.Parsing.Xml;
 
-internal class CommentTagContentToken :SyntaxNode
+internal record CommentTagContentToken :SyntaxNode
 {
     private CommentTagContentToken(string value) : base(value, Array.Empty<SyntaxNode>())
     {

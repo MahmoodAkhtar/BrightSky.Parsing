@@ -3,7 +3,7 @@ using static Pidgin.Parser;
 
 namespace BrightSky.Parsing.Xml;
 
-internal class LtQMarkToken : SyntaxNode
+internal record LtQMarkToken : SyntaxNode
 {
     private LtQMarkToken() : base("<?", new SyntaxNode[] { new LtToken(), new QMarkToken() })
     {

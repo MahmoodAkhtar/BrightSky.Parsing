@@ -3,7 +3,7 @@ using static Pidgin.Parser;
 
 namespace BrightSky.Parsing.Xml;
 
-internal class DqToken : SyntaxNode
+internal record DqToken : SyntaxNode
 {
     internal DqToken() : base("\"", Array.Empty<SyntaxNode>())
     {

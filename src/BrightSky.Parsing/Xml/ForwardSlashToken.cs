@@ -1,6 +1,6 @@
 ﻿namespace BrightSky.Parsing.Xml;
 
-internal class ForwardSlashToken : SyntaxNode
+internal record ForwardSlashToken : SyntaxNode
 {
     internal ForwardSlashToken() : base("/", Array.Empty<SyntaxNode>())
     {
