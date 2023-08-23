@@ -5,7 +5,7 @@ namespace BrightSky.Parsing.Xml;
 
 internal record ClosingTagToken : SyntaxNode
 {
-    private ClosingTagToken(string value, IEnumerable<SyntaxNode> children) : base(value, children)
+    internal ClosingTagToken(string value, IEnumerable<SyntaxNode> children) : base(value, children)
     {
     }
     

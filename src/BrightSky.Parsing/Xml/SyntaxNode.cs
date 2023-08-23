@@ -11,7 +11,7 @@ public record EmptySyntaxNode : SyntaxNode
 
 public abstract record SyntaxNode
 {
-    protected static SyntaxNode Empty => new EmptySyntaxNode();
+    public static SyntaxNode Empty => new EmptySyntaxNode();
     
     public string Value { get; }
     public IEquatableEnumeration<SyntaxNode> Children { get; }

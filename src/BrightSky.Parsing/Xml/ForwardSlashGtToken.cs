@@ -5,7 +5,7 @@ namespace BrightSky.Parsing.Xml;
 
 internal record ForwardSlashGtToken : SyntaxNode
 {
-    private ForwardSlashGtToken() : base("/>", new SyntaxNode[] { new ForwardSlashToken(), new GtToken() })
+    internal ForwardSlashGtToken() : base("/>", new SyntaxNode[] { new ForwardSlashToken(), new GtToken() })
     {
     }
     

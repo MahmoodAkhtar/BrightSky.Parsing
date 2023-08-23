@@ -5,7 +5,7 @@ namespace BrightSky.Parsing.Xml;
 
 internal record IdentifierToken : SyntaxNode
 {
-    private IdentifierToken(string value) : base(value, Array.Empty<SyntaxNode>())
+    internal IdentifierToken(string value) : base(value, Array.Empty<SyntaxNode>())
     {
     }
     

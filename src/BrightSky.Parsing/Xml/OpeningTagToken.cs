@@ -5,7 +5,7 @@ namespace BrightSky.Parsing.Xml;
 
 internal record OpeningTagToken : SyntaxNode
 {
-    private OpeningTagToken(string value, IEnumerable<SyntaxNode> children) : base(value, children)
+    internal OpeningTagToken(string value, IEnumerable<SyntaxNode> children) : base(value, children)
     {
     }
 

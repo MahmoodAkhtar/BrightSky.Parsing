@@ -5,7 +5,7 @@ namespace BrightSky.Parsing.Xml;
 
 internal record DocumentToken : SyntaxNode
 {
-    private DocumentToken(IEnumerable<SyntaxNode> children) : base(string.Empty, children)
+    internal DocumentToken(IEnumerable<SyntaxNode> children) : base(string.Empty, children)
     {
     }
     

@@ -21,7 +21,7 @@ internal record AttributeToken : SyntaxNode
         from after in (
             from ws in Whitespace
             select ws).Many()
-        from value in AttributeValueToken.Parser.Between(DqToken.Parser)
+        from value in AttributeValueToken.Parser
         select new AttributeToken(
             name.Value,
             OrganiseChildren(
@@ -30,9 +30,7 @@ internal record AttributeToken : SyntaxNode
                 middle as char[] ?? middle.ToArray(),
                 eq,
                 after as char[] ?? after.ToArray(),
-                new DqToken(),
-                value,
-                new DqToken()));
+                value));
 
     private static IEnumerable<SyntaxNode> OrganiseChildren (
         char[] before,
@@ -40,9 +38,7 @@ internal record AttributeToken : SyntaxNode
         char[] middle,
         SyntaxNode eq,
         char[] after,
-        SyntaxNode first,
-        SyntaxNode value,
-        SyntaxNode second)
+        SyntaxNode value)
     {
         var list = new List<SyntaxNode>();
 
@@ -59,9 +55,7 @@ internal record AttributeToken : SyntaxNode
         if (after.Any())
             list.Add(new WhitespacesToken(new string(after)));
 
-        list.Add(first);
         list.Add(value);
-        list.Add(second);
             
         return list;
     }

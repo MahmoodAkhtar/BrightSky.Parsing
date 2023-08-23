@@ -6,12 +6,12 @@ namespace BrightSky.Parsing.Tests.Xml;
 public class AttributeValueTokenTest
 {
     [Theory]
-    [InlineData("", "")]
-    [InlineData(" ", " ")]
-    [InlineData("abc", "abc")]
-    [InlineData("abc\"", "abc")]
-    [InlineData("abc\"def", "abc")]
-    [InlineData("\"def", "")]
+    [InlineData("\"\"", "")]
+    [InlineData("\" \"", " ")]
+    [InlineData("\"abc\"", "abc")]
+    [InlineData("\"abc\"\"", "abc")]
+    [InlineData("\"abc\"def\"", "abc")]
+    [InlineData("\"\"def\"", "")]
     public void Parser_ShouldBe_AsExpected(string input, string expected)
     {
         // Action
