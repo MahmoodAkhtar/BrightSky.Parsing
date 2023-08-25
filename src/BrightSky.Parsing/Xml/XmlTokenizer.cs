@@ -13,9 +13,10 @@ public static class XmlTokenizer
             .Or(Try(ForwardSlashGtToken.Parser.Map(x => x as SyntaxNode))
                 .Or(ForwardSlashToken.Parser.Map(x => x as SyntaxNode)))
             
-            .Or(IdentifierToken.Parser.Map(x => x as SyntaxNode))
-            
-            .Or(AttributeValueToken.Parser.Map(x => x as SyntaxNode))
+            .Or(Try(AttributeToken.Parser.Map(x => x as SyntaxNode))
+                .Or(IdentifierToken.Parser.Map(x => x as SyntaxNode))
+                .Or(EqToken.Parser.Map(x => x as SyntaxNode))
+                .Or(AttributeValueToken.Parser.Map(x => x as SyntaxNode)))
             
             .ParseOrThrow(input);
 }

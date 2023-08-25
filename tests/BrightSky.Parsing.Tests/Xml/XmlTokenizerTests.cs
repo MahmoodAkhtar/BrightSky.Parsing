@@ -94,7 +94,21 @@ public class XmlTokenizerTests
         // Assert
         actual.Should().Be(expected);
     }
-     
+    
+    [Theory]
+    [InlineData("=")]
+    public void Tokenize_EqTokenShouldBe_AsExpected(string input)
+    {
+        // Arrange
+        var expected = new EqToken();
+        
+        // Action
+        var actual =  XmlTokenizer.Tokenize(input);
+
+        // Assert
+        actual.Should().Be(expected);
+    }    
+    
     [Theory]
     [InlineData("\"\"", "")]
     [InlineData("\" \"", " ")]
@@ -104,6 +118,25 @@ public class XmlTokenizerTests
     {
         // Arrange
         var expected = new AttributeValueToken(value);
+        
+        // Action
+        var actual =  XmlTokenizer.Tokenize(input);
+
+        // Assert
+        actual.Should().Be(expected);
+    } 
+    
+    [Theory]
+    [InlineData("a=\"x\"", "a", "x")]
+    public void Tokenize_AttributeToken_ShouldBe_AsExpected(string input, string identifier, string value)
+    {
+        // Arrange
+        var expected = new AttributeToken(identifier, new SyntaxNode[]
+        {
+            new IdentifierToken(identifier),
+            new EqToken(),
+            new AttributeValueToken(value)
+        });
         
         // Action
         var actual =  XmlTokenizer.Tokenize(input);
