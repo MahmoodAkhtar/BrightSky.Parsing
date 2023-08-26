@@ -143,6 +143,72 @@ public class XmlTokenizerTests
 
         // Assert
         actual.Should().Be(expected);
-    }   
+    }
+    
+    [Theory]
+    [InlineData("a = \"x\"", "a", "x", " ")]
+    public void Tokenize_AttributeTokenWithWhitespaces_ShouldBe_AsExpected(string input, string identifier, string value, string ws)
+    {
+        // Arrange
+        var expected = new AttributeToken(identifier, new SyntaxNode[]
+        {
+            new IdentifierToken(identifier),
+            new WhitespacesToken(ws),
+            new EqToken(),
+            new WhitespacesToken(ws),
+            new AttributeValueToken(value)
+        });
+        
+        // Action
+        var actual =  XmlTokenizer.Tokenize(input);
+
+        // Assert
+        actual.Should().Be(expected);
+    }
+    
+    [Theory]
+    [InlineData("<abc>", "abc")]
+    public void Tokenize_OpeningTagToken_ShouldBe_AsExpected(string input, string identifier)
+    {
+        // Arrange
+        var expected = new OpeningTagToken(identifier, new SyntaxNode[]
+        {
+            new LtToken(),
+            new IdentifierToken(identifier),
+            new GtToken()
+        });
+        
+        // Action
+        var actual =  XmlTokenizer.Tokenize(input);
+
+        // Assert
+        actual.Should().Be(expected);
+    }
+     
+    [Theory]
+    [InlineData("<abc a=\"x\">", "abc", "a", "x")]
+    public void Tokenize_OpeningTagTokenWithAttributeToken_ShouldBe_AsExpected(string input, string identifier1, string identifier2, string value)
+    {
+        // Arrange
+        var expected = new OpeningTagToken(identifier1, new SyntaxNode[]
+        {
+            new LtToken(),
+            new IdentifierToken(identifier1),
+            new WhitespacesToken(" "),
+            new AttributeToken(identifier2, new SyntaxNode[]
+            {
+                new IdentifierToken(identifier2),
+                new EqToken(),
+                new AttributeValueToken(value)
+            }),
+            new GtToken()
+        });
+        
+        // Action
+        var actual =  XmlTokenizer.Tokenize(input);
+
+        // Assert
+        actual.Should().Be(expected);
+    }
     
 }
