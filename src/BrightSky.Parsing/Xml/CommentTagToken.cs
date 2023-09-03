@@ -1,4 +1,5 @@
-﻿using Pidgin;
+﻿using BrightSky.Parsing.Internal;
+using Pidgin;
 
 namespace BrightSky.Parsing.Xml;
 
@@ -8,14 +9,16 @@ internal record CommentTagToken : SyntaxNode
     {
     }
     
-    internal static readonly Parser<char, TagToken> Parser = 
-        from comment in CommentTagContentToken.Parser
-        select new TagToken(
-            comment.Value,
+    internal static readonly Parser<char, CommentTagToken> Parser = 
+        from opening in OpeningCommentTagToken.Parser
+        from content in new UntilLastOfAnyString(new ClosingCommentTagToken().Value)
+        from closing in ClosingCommentTagToken.Parser
+        select new CommentTagToken(
+            content,
             OrganiseChildren(
-                new OpeningCommentTagToken(),
-                comment,
-                new ClosingCommentTagToken()));
+                opening,
+                new CommentTagContentToken(content),
+                closing));
     
     private static IEnumerable<SyntaxNode> OrganiseChildren 
         (SyntaxNode opening, SyntaxNode content, SyntaxNode closing)

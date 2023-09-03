@@ -9,6 +9,6 @@ internal record TagContentToken : SyntaxNode
     {
     }
     
-    internal static readonly Parser<char, TagToken> Parser = 
-        Token(c => c != '<').ManyString().Map(x => new TagToken(x, Array.Empty<SyntaxNode>()));
+    internal static readonly Parser<char, TagContentToken> Parser = 
+        Token(c => c != '<').ManyString().Map(x => new TagContentToken(x));
 }

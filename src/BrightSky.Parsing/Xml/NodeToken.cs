@@ -5,8 +5,9 @@ namespace BrightSky.Parsing.Xml;
 
 internal static class NodeToken
 {
-    internal static readonly Parser<char, TagToken> Parser =
-        Try(TagToken.Parser)
-            .Or(Try(EmptyTagToken.Parser).Or(CommentTagToken.Parser))
-            .Or(TagContentToken.Parser);
+    internal static readonly Parser<char, SyntaxNode> Parser =
+        Try(TagToken.Parser.Map(x => x as SyntaxNode))
+            .Or(Try(EmptyTagToken.Parser.Map(x => x as SyntaxNode))
+                .Or(CommentTagToken.Parser.Map(x => x as SyntaxNode)))
+            .Or(TagContentToken.Parser.Map(x => x as SyntaxNode));
 }

@@ -18,7 +18,7 @@ public class TagContentTokenTests
         var actual = TagContentToken.Parser.ParseOrThrow(input);
 
         // Assert
-        actual.Should().BeOfType<TagToken>();
+        actual.Should().BeOfType<TagContentToken>();
         actual.Value.Should().Be(expected);
     }
 }

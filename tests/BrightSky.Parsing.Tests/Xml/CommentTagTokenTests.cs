@@ -29,7 +29,26 @@ public class CommentTagTokenTests
         var actual = CommentTagToken.Parser.ParseOrThrow(input);
 
         // Assert
-        actual.Should().BeOfType<TagToken>();
+        actual.Should().BeOfType<CommentTagToken>();
         actual.Value.Should().Be(expected);
+    }
+    
+    
+    [Theory]
+    [InlineData("")]
+    [InlineData(" ")]
+    [InlineData("#")]
+    [InlineData("<!-")]
+    [InlineData("<!")]
+    [InlineData("<")]
+    [InlineData("<#--")]
+    [InlineData("<!--")]
+    public void Parser_ShouldThrowExactly_ParseException(string input)
+    {
+        // Action
+        Action action = () => CommentTagToken.Parser.ParseOrThrow(input);
+
+        // Assert
+        action.Should().ThrowExactly<ParseException>();
     }
 }

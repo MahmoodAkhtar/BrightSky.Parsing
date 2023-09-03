@@ -22,7 +22,7 @@ public class EmptyTagTokenTests
         var actual = EmptyTagToken.Parser.ParseOrThrow(input);
 
         // Assert
-        actual.Should().BeOfType<TagToken>();
+        actual.Should().BeOfType<EmptyTagToken>();
         actual.Value.Should().Be(expected);
     }
     

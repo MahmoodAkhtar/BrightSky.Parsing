@@ -19,12 +19,12 @@ public record TagToken : SyntaxNode
             opening.Value,
             OrganiseChildren(
                 opening,
-                children as TagToken[] ?? children.ToArray(),
+                children as SyntaxNode[] ?? children.ToArray(),
                 closing));
     
     private static IEnumerable<SyntaxNode> OrganiseChildren (
         SyntaxNode opening,
-        TagToken[] children,
+        SyntaxNode[] children,
         SyntaxNode closing)
     {
         var list = new List<SyntaxNode>
@@ -40,7 +40,7 @@ public record TagToken : SyntaxNode
         return list;
     }
     
-    private static IEnumerable<SyntaxNode> DetermineTypeForTokens(IEnumerable<TagToken> tokens)
+    private static IEnumerable<SyntaxNode> DetermineTypeForTokens(IEnumerable<SyntaxNode> tokens)
         => tokens.Select(DetermineTypeForToken);
 
     private static SyntaxNode DetermineTypeForToken(SyntaxNode token)

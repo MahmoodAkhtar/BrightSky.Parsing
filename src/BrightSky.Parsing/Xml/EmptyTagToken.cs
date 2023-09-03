@@ -9,7 +9,7 @@ internal record EmptyTagToken : SyntaxNode
     {
     }
  
-    internal static readonly Parser<char, TagToken> Parser = 
+    internal static readonly Parser<char, EmptyTagToken> Parser = 
         from opening in LtToken.Parser
         from before in (
             from ws in Whitespace
@@ -25,7 +25,7 @@ internal record EmptyTagToken : SyntaxNode
             from ws in Whitespace
             select ws).Many()
         from closing in ForwardSlashGtToken.Parser
-        select new TagToken(
+        select new EmptyTagToken(
             name.Value,
             OrganiseChildren(
                 opening,
