@@ -9,5 +9,5 @@ internal record DqToken : SyntaxNode
     {
     }
     
-    internal static readonly Parser<char, DqToken> Parser = Char('"').ThenReturn(new DqToken());
+    internal static readonly Parser<char, DqToken> Parser = Char('"').Map(_ => new DqToken());
 }

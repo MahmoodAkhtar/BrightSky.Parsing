@@ -34,7 +34,7 @@ internal class UntilFirstOfAnyString: Parser<char, string>
         }
 
         if (bookmark is 0) return true;
-        state.Rewind(bookmark+_terminator.Length);
+        state.Rewind(bookmark);
         result = sb.ToString()[..(bookmark-start)];
 
         return true;

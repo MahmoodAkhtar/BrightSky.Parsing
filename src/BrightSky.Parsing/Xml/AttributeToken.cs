@@ -1,4 +1,5 @@
-﻿using Pidgin;
+﻿using BrightSky.Parsing.Internal;
+using Pidgin;
 using static Pidgin.Parser;
 
 namespace BrightSky.Parsing.Xml;

@@ -5,6 +5,67 @@ namespace BrightSky.Parsing.Tests.Xml;
 public class XmlTokenizerTests
 {
     [Theory]
+    [InlineData("\"")]
+    public void Tokenize_DqToken_ShouldBe_AsExpected(string input)
+    {
+        // Arrange
+        var expected = new SyntaxNode[] { new DqToken() };
+        
+        // Action
+        var actual =  XmlTokenizer.Tokenize(input);
+
+        // Assert
+        actual.Should().BeEquivalentTo(expected);
+    }    
+ 
+    [Theory]
+    [InlineData("\"\"\"", "")]
+    public void Tokenize_DqToken_x3_ShouldBe_AsExpected(string input, string value)
+    {
+        // Arrange
+        var expected = new SyntaxNode[]
+        {
+            new AttributeValueToken(value, new SyntaxNode[]
+            {
+                new DqToken(),
+                new ValueToken(value),
+                new DqToken()
+            }),
+            new DqToken()
+        };
+        
+        // Action
+        var actual =  XmlTokenizer.Tokenize(input);
+
+        // Assert
+        actual.Should().BeEquivalentTo(expected);
+    }     
+  
+    [Theory]
+    [InlineData("\" \" \"", " ")]
+    public void Tokenize_DqToken_x3_WithWhitespaces_ShouldBe_AsExpected(string input, string value)
+    {
+        // Arrange
+        var expected = new SyntaxNode[]
+        {
+            new AttributeValueToken(value, new SyntaxNode[]
+            {
+                new DqToken(),
+                new ValueToken(value),
+                new DqToken()
+            }),
+            new WhitespacesToken(value),
+            new DqToken()
+        };
+        
+        // Action
+        var actual =  XmlTokenizer.Tokenize(input);
+
+        // Assert
+        actual.Should().BeEquivalentTo(expected);
+    }  
+    
+    [Theory]
     [InlineData("<")]
     public void Tokenize_LtToken_ShouldBe_AsExpected(string input)
     {
@@ -202,7 +263,15 @@ public class XmlTokenizerTests
     public void Tokenize_AttributeValueToken_ShouldBe_AsExpected(string input, string value)
     {
         // Arrange
-        var expected = new SyntaxNode[] { new AttributeValueToken(value) };
+        var expected = new SyntaxNode[]
+        {
+            new AttributeValueToken(value, new SyntaxNode[]
+            {
+                new DqToken(),
+                new ValueToken(value),
+                new DqToken()
+            })
+        };
         
         // Action
         var actual =  XmlTokenizer.Tokenize(input);
@@ -219,7 +288,27 @@ public class XmlTokenizerTests
     public void Tokenize_AttributeValueToken_x3_ShouldBe_AsExpected(string input, string value)
     {
         // Arrange
-        var expected = new SyntaxNode[] { new AttributeValueToken(value), new AttributeValueToken(value), new AttributeValueToken(value) };
+        var expected = new SyntaxNode[]
+        {
+            new AttributeValueToken(value, new SyntaxNode[]
+            {
+                new DqToken(),
+                new ValueToken(value),
+                new DqToken()
+            }),
+            new AttributeValueToken(value, new SyntaxNode[]
+            {
+                new DqToken(),
+                new ValueToken(value),
+                new DqToken()
+            }),
+            new AttributeValueToken(value, new SyntaxNode[]
+            {
+                new DqToken(),
+                new ValueToken(value),
+                new DqToken()
+            })
+        };
         
         // Action
         var actual =  XmlTokenizer.Tokenize(input);
@@ -239,7 +328,12 @@ public class XmlTokenizerTests
             {
                 new IdentifierToken(identifier),
                 new EqToken(),
-                new AttributeValueToken(value)
+                new AttributeValueToken(value, new SyntaxNode[]
+                {
+                    new DqToken(),
+                    new ValueToken(value),
+                    new DqToken()
+                })
             }) 
         };
         
@@ -261,19 +355,34 @@ public class XmlTokenizerTests
             {
                 new IdentifierToken(identifier),
                 new EqToken(),
-                new AttributeValueToken(value)
+                new AttributeValueToken(value, new SyntaxNode[]
+                {
+                    new DqToken(),
+                    new ValueToken(value),
+                    new DqToken()
+                })
             }), 
             new AttributeToken(identifier, new SyntaxNode[]
             {
                 new IdentifierToken(identifier),
                 new EqToken(),
-                new AttributeValueToken(value)
+                new AttributeValueToken(value, new SyntaxNode[]
+                {
+                    new DqToken(),
+                    new ValueToken(value),
+                    new DqToken()
+                })
             }), 
             new AttributeToken(identifier, new SyntaxNode[]
             {
                 new IdentifierToken(identifier),
                 new EqToken(),
-                new AttributeValueToken(value)
+                new AttributeValueToken(value, new SyntaxNode[]
+                {
+                    new DqToken(),
+                    new ValueToken(value),
+                    new DqToken()
+                })
             })
         };
         
@@ -295,21 +404,36 @@ public class XmlTokenizerTests
             {
                 new IdentifierToken(identifier),
                 new EqToken(),
-                new AttributeValueToken(value)
+                new AttributeValueToken(value, new SyntaxNode[]
+                {
+                    new DqToken(),
+                    new ValueToken(value),
+                    new DqToken()
+                })
             }), 
             new WhitespacesToken(" "),
             new AttributeToken(identifier, new SyntaxNode[]
             {
                 new IdentifierToken(identifier),
                 new EqToken(),
-                new AttributeValueToken(value)
+                new AttributeValueToken(value, new SyntaxNode[]
+                {
+                    new DqToken(),
+                    new ValueToken(value),
+                    new DqToken()
+                })
             }), 
             new WhitespacesToken(" "),
             new AttributeToken(identifier, new SyntaxNode[]
             {
                 new IdentifierToken(identifier),
                 new EqToken(),
-                new AttributeValueToken(value)
+                new AttributeValueToken(value, new SyntaxNode[]
+                {
+                    new DqToken(),
+                    new ValueToken(value),
+                    new DqToken()
+                })
             })
         };
         
@@ -333,7 +457,12 @@ public class XmlTokenizerTests
                 new WhitespacesToken(ws),
                 new EqToken(),
                 new WhitespacesToken(ws),
-                new AttributeValueToken(value)
+                new AttributeValueToken(value, new SyntaxNode[]
+                {
+                    new DqToken(),
+                    new ValueToken(value),
+                    new DqToken()
+                })
             }) 
         };
         
@@ -357,7 +486,12 @@ public class XmlTokenizerTests
                 new WhitespacesToken(ws),
                 new EqToken(),
                 new WhitespacesToken(ws),
-                new AttributeValueToken(value)
+                new AttributeValueToken(value, new SyntaxNode[]
+                {
+                    new DqToken(),
+                    new ValueToken(value),
+                    new DqToken()
+                })
             }),
             new WhitespacesToken(ws),
             new AttributeToken(identifier, new SyntaxNode[]
@@ -366,7 +500,12 @@ public class XmlTokenizerTests
                 new WhitespacesToken(ws),
                 new EqToken(),
                 new WhitespacesToken(ws),
-                new AttributeValueToken(value)
+                new AttributeValueToken(value, new SyntaxNode[]
+                {
+                    new DqToken(),
+                    new ValueToken(value),
+                    new DqToken()
+                })
             }),
             new WhitespacesToken(ws),
             new AttributeToken(identifier, new SyntaxNode[]
@@ -375,7 +514,12 @@ public class XmlTokenizerTests
                 new WhitespacesToken(ws),
                 new EqToken(),
                 new WhitespacesToken(ws),
-                new AttributeValueToken(value)
+                new AttributeValueToken(value, new SyntaxNode[]
+                {
+                    new DqToken(),
+                    new ValueToken(value),
+                    new DqToken()
+                })
             }),
         };
         
@@ -494,7 +638,12 @@ public class XmlTokenizerTests
                 {
                     new IdentifierToken(identifier2),
                     new EqToken(),
-                    new AttributeValueToken(value)
+                    new AttributeValueToken(value, new SyntaxNode[]
+                    {
+                        new DqToken(),
+                        new ValueToken(value),
+                        new DqToken()
+                    })
                 }),
                 new GtToken()
             }) 
@@ -523,7 +672,12 @@ public class XmlTokenizerTests
                 {
                     new IdentifierToken(identifier2),
                     new EqToken(),
-                    new AttributeValueToken(value)
+                    new AttributeValueToken(value, new SyntaxNode[]
+                    {
+                        new DqToken(),
+                        new ValueToken(value),
+                        new DqToken()
+                    })
                 }),
                 new GtToken()
             }),
@@ -536,7 +690,12 @@ public class XmlTokenizerTests
                 {
                     new IdentifierToken(identifier2),
                     new EqToken(),
-                    new AttributeValueToken(value)
+                    new AttributeValueToken(value, new SyntaxNode[]
+                    {
+                        new DqToken(),
+                        new ValueToken(value),
+                        new DqToken()
+                    })
                 }),
                 new GtToken()
             }),
@@ -549,7 +708,12 @@ public class XmlTokenizerTests
                 {
                     new IdentifierToken(identifier2),
                     new EqToken(),
-                    new AttributeValueToken(value)
+                    new AttributeValueToken(value, new SyntaxNode[]
+                    {
+                        new DqToken(),
+                        new ValueToken(value),
+                        new DqToken()
+                    })
                 }),
                 new GtToken()
             })
@@ -578,7 +742,12 @@ public class XmlTokenizerTests
                 {
                     new IdentifierToken(identifier2),
                     new EqToken(),
-                    new AttributeValueToken(value)
+                    new AttributeValueToken(value, new SyntaxNode[]
+                    {
+                        new DqToken(),
+                        new ValueToken(value),
+                        new DqToken()
+                    })
                 }),
                 new GtToken()
             }),
@@ -592,7 +761,12 @@ public class XmlTokenizerTests
                 {
                     new IdentifierToken(identifier2),
                     new EqToken(),
-                    new AttributeValueToken(value)
+                    new AttributeValueToken(value, new SyntaxNode[]
+                    {
+                        new DqToken(),
+                        new ValueToken(value),
+                        new DqToken()
+                    })
                 }),
                 new GtToken()
             }),
@@ -606,7 +780,12 @@ public class XmlTokenizerTests
                 {
                     new IdentifierToken(identifier2),
                     new EqToken(),
-                    new AttributeValueToken(value)
+                    new AttributeValueToken(value, new SyntaxNode[]
+                    {
+                        new DqToken(),
+                        new ValueToken(value),
+                        new DqToken()
+                    })
                 }),
                 new GtToken()
             })

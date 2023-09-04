@@ -6,13 +6,13 @@ namespace BrightSky.Parsing.Xml;
 
 internal record AttributeValueToken : SyntaxNode
 {
-    internal AttributeValueToken(string value) 
-        : base(value, new SyntaxNode[] { new DqToken(), new ValueToken(value), new DqToken() } )
+    internal AttributeValueToken(string value, IEnumerable<SyntaxNode> children) : base(value, children)
     {
     }
-    
-    internal static readonly Parser<char, AttributeValueToken> Parser = 
-        Token('"')
-            .Then(new UntilFirstOfAnyString(new DqToken().Value))
-            .Map(x => new AttributeValueToken(x));
+
+    internal static readonly Parser<char, AttributeValueToken> Parser =
+        from opening in DqToken.Parser
+        from value in new UntilFirstOfAnyString(new DqToken().Value)
+        from closing in DqToken.Parser
+        select new AttributeValueToken(value, new SyntaxNode[] { opening, new ValueToken(value), closing });
 }

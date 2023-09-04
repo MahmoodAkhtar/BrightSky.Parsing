@@ -22,9 +22,9 @@ public static class XmlTokenizer
                                     .Or(LtToken.Parser.Map(x => x as SyntaxNode))))))))
             
             .Or(Try(AttributeToken.Parser.Map(x => x as SyntaxNode))
-                .Or(IdentifierToken.Parser.Map(x => x as SyntaxNode)))
-            
-            .Or(AttributeValueToken.Parser.Map(x => x as SyntaxNode))
+                .Or(Try(IdentifierToken.Parser.Map(x => x as SyntaxNode))
+                    .Or(Try(AttributeValueToken.Parser.Map(x => x as SyntaxNode))
+                        .Or(DqToken.Parser.Map(x => x as SyntaxNode)))))
             
             .Or(EqToken.Parser.Map(x => x as SyntaxNode))
 
