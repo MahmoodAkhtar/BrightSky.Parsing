@@ -5,7 +5,7 @@ namespace BrightSky.Parsing.Xml;
 
 internal record XmlNameToken : SyntaxNode
 {
-    private XmlNameToken(string value) : base(value, Array.Empty<SyntaxNode>())
+    internal XmlNameToken(string value) : base(value, Array.Empty<SyntaxNode>())
     {
     }
     

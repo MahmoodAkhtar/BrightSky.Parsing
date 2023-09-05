@@ -1113,4 +1113,95 @@ public class XmlTokenizerTests
         actual.Should().BeEquivalentTo(expected);
     }
 
+    [Theory]
+    [InlineData("<?xml?>", "xml")]
+    public void Tokenize_XmlDeclToken_ShouldBe_AsExpected(string input, string value)
+    {
+        // Arrange
+        var expected = new SyntaxNode[]
+        {
+            new XmlDeclToken(value, new SyntaxNode[]
+            {
+                new LtQMarkToken(),
+                new XmlNameToken(value),
+                new QMarkGtToken()
+            })
+        };
+        
+        // Action
+        var actual = XmlTokenizer.Tokenize(input);
+    
+        // Assert
+        actual.Should().BeEquivalentTo(expected);
+    }    
+ 
+    [Theory]
+    [InlineData("<?xml?><?xml?><?xml?>", "xml")]
+    public void Tokenize_XmlDeclToken_x3_ShouldBe_AsExpected(string input, string value)
+    {
+        // Arrange
+        var expected = new SyntaxNode[]
+        {
+            new XmlDeclToken(value, new SyntaxNode[]
+            {
+                new LtQMarkToken(),
+                new XmlNameToken(value),
+                new QMarkGtToken()
+            }),
+            new XmlDeclToken(value, new SyntaxNode[]
+            {
+                new LtQMarkToken(),
+                new XmlNameToken(value),
+                new QMarkGtToken()
+            }),
+            new XmlDeclToken(value, new SyntaxNode[]
+            {
+                new LtQMarkToken(),
+                new XmlNameToken(value),
+                new QMarkGtToken()
+            })
+        };
+        
+        // Action
+        var actual = XmlTokenizer.Tokenize(input);
+    
+        // Assert
+        actual.Should().BeEquivalentTo(expected);
+    }
+ 
+    [Theory]
+    [InlineData("<?xml?> <?xml?> <?xml?>", "xml")]
+    public void Tokenize_XmlDeclToken_x3_WithWhitespaces_ShouldBe_AsExpected(string input, string value)
+    {
+        // Arrange
+        var expected = new SyntaxNode[]
+        {
+            new XmlDeclToken(value, new SyntaxNode[]
+            {
+                new LtQMarkToken(),
+                new XmlNameToken(value),
+                new QMarkGtToken()
+            }),
+            new WhitespacesToken(" "),
+            new XmlDeclToken(value, new SyntaxNode[]
+            {
+                new LtQMarkToken(),
+                new XmlNameToken(value),
+                new QMarkGtToken()
+            }),
+            new WhitespacesToken(" "),
+            new XmlDeclToken(value, new SyntaxNode[]
+            {
+                new LtQMarkToken(),
+                new XmlNameToken(value),
+                new QMarkGtToken()
+            })
+        };
+        
+        // Action
+        var actual = XmlTokenizer.Tokenize(input);
+    
+        // Assert
+        actual.Should().BeEquivalentTo(expected);
+    }
 }

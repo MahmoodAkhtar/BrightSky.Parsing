@@ -5,7 +5,7 @@ namespace BrightSky.Parsing.Xml;
 
 internal record QMarkGtToken : SyntaxNode
 {
-    private QMarkGtToken() : base("?>", new SyntaxNode[] { new QMarkToken(), new GtToken() })
+    internal QMarkGtToken() : base("?>", new SyntaxNode[] { new QMarkToken(), new GtToken() })
     {
     }
     

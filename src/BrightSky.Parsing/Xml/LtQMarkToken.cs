@@ -5,7 +5,7 @@ namespace BrightSky.Parsing.Xml;
 
 internal record LtQMarkToken : SyntaxNode
 {
-    private LtQMarkToken() : base("<?", new SyntaxNode[] { new LtToken(), new QMarkToken() })
+    internal LtQMarkToken() : base("<?", new SyntaxNode[] { new LtToken(), new QMarkToken() })
     {
     }
     
