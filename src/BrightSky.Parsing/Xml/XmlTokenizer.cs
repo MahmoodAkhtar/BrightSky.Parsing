@@ -18,9 +18,10 @@ public static class XmlTokenizer
                     .Or(Try(CommentTagToken.Parser.Map(x => x as SyntaxNode))
                         .Or(Try(OpeningCommentTagToken.Parser.Map(x => x as SyntaxNode))
                             .Or(Try(ClosingCommentTagToken.Parser.Map(x => x as SyntaxNode))
-                                .Or(Try(LtForwardSlashToken.Parser.Map(x => x as SyntaxNode))
-                                    .Or(Try(XmlDeclToken.Parser.Map(x => x as SyntaxNode))
-                                        .Or(LtToken.Parser.Map(x => x as SyntaxNode)))))))))
+                                .Or(Try(EmptyTagToken.Parser.Map(x => x as SyntaxNode))
+                                    .Or(Try(LtForwardSlashToken.Parser.Map(x => x as SyntaxNode))
+                                        .Or(Try(XmlDeclToken.Parser.Map(x => x as SyntaxNode))
+                                            .Or(LtToken.Parser.Map(x => x as SyntaxNode))))))))))
             
             .Or(Try(AttributeToken.Parser.Map(x => x as SyntaxNode))
                 .Or(Try(IdentifierToken.Parser.Map(x => x as SyntaxNode))

@@ -36,7 +36,6 @@ internal record EmptyTagToken : SyntaxNode
                 after as char[] ?? after.ToArray(),
                 closing));
 
-
     private static IEnumerable<SyntaxNode> OrganiseChildren (
         SyntaxNode opening,
         char[] before,

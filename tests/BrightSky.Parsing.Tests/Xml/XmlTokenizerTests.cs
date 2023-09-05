@@ -1204,4 +1204,96 @@ public class XmlTokenizerTests
         // Assert
         actual.Should().BeEquivalentTo(expected);
     }
+ 
+    [Theory]
+    [InlineData("<abc/>", "abc")]
+    public void Tokenize_EmptyTagToken_ShouldBe_AsExpected(string input, string value)
+    {
+        // Arrange
+        var expected = new SyntaxNode[]
+        {
+            new EmptyTagToken(value, new SyntaxNode[]
+            {
+                new LtToken(),
+                new IdentifierToken(value),
+                new ForwardSlashGtToken()
+            })
+        };
+        
+        // Action
+        var actual = XmlTokenizer.Tokenize(input);
+    
+        // Assert
+        actual.Should().BeEquivalentTo(expected);
+    }
+    
+    [Theory]
+    [InlineData("<abc/><abc/><abc/>", "abc")]
+    public void Tokenize_EmptyTagToken_x3_ShouldBe_AsExpected(string input, string value)
+    {
+        // Arrange
+        var expected = new SyntaxNode[]
+        {
+            new EmptyTagToken(value, new SyntaxNode[]
+            {
+                new LtToken(),
+                new IdentifierToken(value),
+                new ForwardSlashGtToken()
+            }),
+            new EmptyTagToken(value, new SyntaxNode[]
+            {
+                new LtToken(),
+                new IdentifierToken(value),
+                new ForwardSlashGtToken()
+            }),
+            new EmptyTagToken(value, new SyntaxNode[]
+            {
+                new LtToken(),
+                new IdentifierToken(value),
+                new ForwardSlashGtToken()
+            })
+        };
+        
+        // Action
+        var actual = XmlTokenizer.Tokenize(input);
+    
+        // Assert
+        actual.Should().BeEquivalentTo(expected);
+    }
+
+    [Theory]
+    [InlineData("<abc/> <abc/> <abc/>", "abc")]
+    public void Tokenize_EmptyTagToken_x3_WithWhitespaces_ShouldBe_AsExpected(string input, string value)
+    {
+        // Arrange
+        var expected = new SyntaxNode[]
+        {
+            new EmptyTagToken(value, new SyntaxNode[]
+            {
+                new LtToken(),
+                new IdentifierToken(value),
+                new ForwardSlashGtToken()
+            }),
+            new WhitespacesToken(" "),
+            new EmptyTagToken(value, new SyntaxNode[]
+            {
+                new LtToken(),
+                new IdentifierToken(value),
+                new ForwardSlashGtToken()
+            }),
+            new WhitespacesToken(" "),
+            new EmptyTagToken(value, new SyntaxNode[]
+            {
+                new LtToken(),
+                new IdentifierToken(value),
+                new ForwardSlashGtToken()
+            })
+        };
+        
+        // Action
+        var actual = XmlTokenizer.Tokenize(input);
+    
+        // Assert
+        actual.Should().BeEquivalentTo(expected);
+    }
 }
